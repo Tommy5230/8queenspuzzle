@@ -3,9 +3,10 @@
 require 'pry'
 
 class Board
-  attr_reader :board
+  attr_reader :board, :size
 
   def initialize(size)
+    @size = size
     @board = []
 
     (1..size).map do |i|
@@ -15,4 +16,11 @@ class Board
       end
     end
   end
+
+  def first_row
+    board.first(size)
+  end
+
+  # def boundaries(size)
+  # end
 end
