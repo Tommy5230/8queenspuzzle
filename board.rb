@@ -53,6 +53,7 @@ class Board
     last_column_skip_corners[1..-2]
   end
 
-  # def boundaries(size)
-  # end
+  def boundaries
+    (first_row + first_column + last_row + last_column).uniq
+  end
 end
