@@ -98,7 +98,7 @@ def first_row(board)
 end
 
 def first_row_skip_corners(board)
-  first_row(board).map.with_index {|pos, i| i}[1..-2]
+  first_row(board).map.with_index {|_pos, i| i}[1..-2]
 end
 
 def first_column(position = 'a1', board)
