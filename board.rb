@@ -3,22 +3,22 @@
 require 'pry'
 
 class Board
-  attr_reader :board, :size
+  attr_reader :fields, :size
 
   def initialize(size)
     @size = size
-    @board = []
+    @fields = []
 
     (1..size).map do |i|
       ('a'..'z').first(size).map do |el|
         field = el << i.to_s
-        @board.push(field)
+        @fields.push(field)
       end
     end
   end
 
   def first_row
-    board.first(size)
+    fields.first(size)
   end
 
   def first_row_skip_corners_ids
@@ -27,7 +27,7 @@ class Board
   end
 
   def last_row
-    board.last(size)
+    fields.last(size)
   end
 
   def last_row_skip_corners_ids
@@ -36,7 +36,7 @@ class Board
   end
 
   def first_column
-    board.select.with_index { |_, i| ((i + size) % size).zero? }
+    fields.select.with_index { |_, i| ((i + size) % size).zero? }
   end
 
   def first_column_skip_corners_ids
@@ -45,7 +45,7 @@ class Board
   end
 
   def last_column
-    board.select.with_index { |_, i| ((i + size) % size) == size - 1 }
+    fields.select.with_index { |_, i| ((i + size) % size) == size - 1 }
   end
 
   def last_column_skip_corners_ids
