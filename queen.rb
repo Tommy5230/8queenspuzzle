@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# require 'pry'
-
 class Queen
   attr_reader :position, :board
 
@@ -42,29 +40,31 @@ class Queen
     fields_in_range = []
 
     case position_index
-    when first_corner_id
+    when board.first_corner_id
       traverse_SE
-    when second_corner_id
+    when board.second_corner_id
       traverse_SW
-    when third_corner_id
+    when board.third_corner_id
       traverse_NE
-    when last_corner_id
+    when board.last_corner_id
       traverse_NW
-    when first_row_skip_corners_ids.include?(position_index)
+    when *board.first_row_skip_corners_ids
       traverse_S
-    when last_row_skip_corners_ids.include?(position_index)
+    when *board.last_row_skip_corners_ids
       traverse_N
-    when first_column_skip_corners_ids.include?(position_index)
+    when *board.first_column_skip_corners_ids
       traverse_E
-    when last_column_skip_corners_ids.include?(position_index)
+    when *board.last_column_skip_corners_ids
       traverse_W
     else
-      [-9, 7, -7, 9].each do |dir|
-        until boundaries.include?(board.fields[position_index])
-          fields_in_range << board.fields[position_index]
-          position_index += dir
+      directions = [next_NE, next_NW, next_SE, next_SW]
+      directions.each do |dir|
+        considered_field_id = position_index
+        until board.boundaries.include?(board.fields[considered_field_id])
+          fields_in_range << board.fields[considered_field_id]
+          considered_field_id += dir
         end
-        fields_in_range << board.fields[position_index]
+        fields_in_range << board.fields[considered_field_id]
       end
       fields_in_range
     end
@@ -106,51 +106,51 @@ class Queen
     fields_in_range = []
 
     # next diagonal in NE direction:
-    position_index += next_NE
+    next_diag = position_index + next_NE
 
-    until boundaries.include?(board.fields[position_index])
-      fields_in_range << board.fields[position_index]
-      position_index += next_NE
+    until board.boundaries.include?(board.fields[next_diag])
+      fields_in_range << board.fields[next_diag]
+      next_diag += next_NE
     end
-    fields_in_range << board.fields[position_index]
+    fields_in_range << board.fields[next_diag]
   end
 
   def traverse_NW
     fields_in_range = []
 
     # next diagonal in NW direction:
-    position_index += next_NW
+    next_diag = position_index + next_NW
 
-    until boundaries.include?(board.fields[position_index])
-      fields_in_range << board.fields[position_index]
-      position_index += next_NW
+    until board.boundaries.include?(board.fields[next_diag])
+      fields_in_range << board.fields[next_diag]
+      next_diag += next_NW
     end
-    fields_in_range << board.fields[position_index]
+    fields_in_range << board.fields[next_diag]
   end
 
   def traverse_SE
     fields_in_range = []
 
     # next diagonal in SE direction:
-    position_index += next_SE
+    next_diag = position_index + next_SE
 
-    until boundaries.include?(board.fields[position_index])
-      fields_in_range << board.fields[position_index]
-      position_index += next_SE
+    until board.boundaries.include?(board.fields[next_diag])
+      fields_in_range << board.fields[next_diag]
+      next_diag += next_SE
     end
-    fields_in_range << board.fields[position_index]
+    fields_in_range << board.fields[next_diag]
   end
 
   def traverse_SW
     fields_in_range = []
 
     # next diagonal in SW direction:
-    position_index += next_SW
+    next_diag = position_index + next_SW
 
-    until boundaries.include?(board.fields[position_index])
-      fields_in_range << board.fields[position_index]
-      position_index += next_SW
+    until board.boundaries.include?(board.fields[next_diag])
+      fields_in_range << board.fields[next_diag]
+      next_diag += next_SW
     end
-    fields_in_range << board.fields[position_index]
+    fields_in_range << board.fields[next_diag]
   end
 end
