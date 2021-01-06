@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'pry'
+# require 'pry'
 
 class Board
   attr_reader :fields, :size
@@ -19,6 +19,22 @@ class Board
 
   def first_row
     fields.first(size)
+  end
+
+  def first_corner_id
+    0
+  end
+
+  def second_corner_id
+    size - 1
+  end
+
+  def third_corner_id
+    (size**2) - size
+  end
+
+  def last_corner_id
+    (size**2) - 1
   end
 
   def first_row_skip_corners_ids
