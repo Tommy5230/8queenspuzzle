@@ -35,7 +35,8 @@
 #
 
 class Board
-  attr_reader :fields, :size
+  attr_reader :size
+  attr_accessor :fields
 
   def initialize(size)
     @size = size
