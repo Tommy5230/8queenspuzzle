@@ -34,7 +34,16 @@ class Queen
     board.fields.index(position)
   end
 
-  ### code below is to be cleaned up ###
+  def plot_fields
+    p = board.fields.map do |field|
+      covered_fields.include?(field) ? '--' : field
+    end
+    board.size.times do
+      print p.shift(board.size)
+      puts
+      puts ' '
+    end
+  end
 
   def traverse_diagonally
     fields_in_range = []
