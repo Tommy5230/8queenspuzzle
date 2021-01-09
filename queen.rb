@@ -10,28 +10,8 @@ class Queen
     @position = position
   end
 
-  def column
-    position.split('').first
-  end
-
-  def row
-    position.split('').last
-  end
-
-  def vertical
-    board.fields.select { |el| el.split('').first == column }
-  end
-
-  def horizontal
-    board.fields.select { |el| el.split('').last == row }
-  end
-
   def covered_fields
     (vertical + horizontal + traverse_diagonally).uniq
-  end
-
-  def position_index
-    board.fields.index(position)
   end
 
   def plot_fields
@@ -43,6 +23,28 @@ class Queen
       puts
       puts ' '
     end
+  end
+
+  private
+
+  def vertical
+    board.fields.select { |el| el.split('').first == column }
+  end
+
+  def horizontal
+    board.fields.select { |el| el.split('').last == row }
+  end
+
+  def column
+    position.split('').first
+  end
+
+  def row
+    position.split('').last
+  end
+
+  def position_index
+    board.fields.index(position)
   end
 
   def traverse_diagonally
