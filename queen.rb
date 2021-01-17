@@ -10,13 +10,22 @@ class Queen
     @position = position
   end
 
-  def column
-    position.split('').first
+  def covered_fields
+    (vertical + horizontal + traverse_diagonally).uniq
   end
 
-  def row
-    position.split('').last
+  def plot_fields
+    p = board.fields.map do |field|
+      covered_fields.include?(field) ? '--' : field
+    end
+    board.size.times do
+      print p.shift(board.size)
+      puts
+      puts ' '
+    end
   end
+
+  private
 
   def vertical
     board.fields.select { |el| el.split('').first == column }
@@ -26,15 +35,17 @@ class Queen
     board.fields.select { |el| el.split('').last == row }
   end
 
-  def covered_fields
-    (vertical + horizontal + traverse_diagonally).uniq
+  def column
+    position.split('').first
+  end
+
+  def row
+    position.split('').last
   end
 
   def position_index
     board.fields.index(position)
   end
-
-  ### code below is to be cleaned up ###
 
   def traverse_diagonally
     fields_in_range = []
